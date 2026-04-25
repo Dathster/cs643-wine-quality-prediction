@@ -18,4 +18,4 @@ docker -v || {
 docker pull dathster/cs643-wine-predictor:latest
 
 # Run the docker container
-docker run --rm -v $(pwd):/data dathster/cs643-wine-predictor:latest /data/$1
+docker run --rm -v $(pwd):/data dathster/cs643-wine-predictor:latest /data/$fname

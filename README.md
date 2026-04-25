@@ -7,6 +7,9 @@ https://github.com/Dathster/cs643-wine-quality-prediction
 ### Docker Hub Repo Link:
 https://hub.docker.com/repository/docker/dathster/cs643-wine-predictor/general
 
+### Java Programs Location:
+src/main/java
+
 ## Cloud environment setup for parallel training
 
 ### EC2 Creation
@@ -68,7 +71,7 @@ https://hub.docker.com/repository/docker/dathster/cs643-wine-predictor/general
 - Do the following steps in the 3 other worker nodes
     - Run `start-worker.sh <master IP address>`
 - Run the following steps in all 4 EC2 instances
-    - Ensure you copied the `cs643-pa2` directory containing all the project files into the ~/ folder and then cd into it.
+    - Ensure you copied this current directory containing all the project files into the ~/ folder and then cd into it.
     - In the folder, use `nano [run.sh](http://run.sh)` to edit the script by adding in the Master’s address from before in the following spot:
     
     ```bash
@@ -76,21 +79,28 @@ https://hub.docker.com/repository/docker/dathster/cs643-wine-predictor/general
     --master <put master IP address here from earlier> \
     --executor-memory 512m \
     --driver-memory 512m \
-    --files ~/cs643-pa2/TrainingDataset.csv \
+    --files $(pwd)/TrainingDataset.csv \
     --class WineTrainer \
     target/wine-quality-spark-pa2-1.0-SNAPSHOT.jar || exit 1
     ```
     
-- Now, in the master node again, run `chmod +x [run.sh](http://run.sh)` in cs643-pa2 directory
+- Now, in the master node again, run `chmod +x [run.sh](http://run.sh)` in this project directory
 - Finally, you can start the job by executing `./run.sh`
 - After the Spark job completes successfully, you will see that the machine learning model will be stored under the `wine_model` folder.
 
 ## Running the Docker Container
 
-- Move the validation dataset you’d like to run into the cs643-pa2 folder
+- Move the validation dataset you’d like to run into this project folder
 - run `chmod +x run_docker_predictor.sh`
 - Run the script, while including the name of the dataset as an argument, i.e.
     
     `./run_docker_predictor.sh \ ValidationDataset.csv`
     
 - Note: Ensure you have Docker installed on your system, or this script won’t be able to run successfully.
+
+## Running Prediction Application Without Docker
+
+- Go to the project’s folder
+- run `chmod +x run_prediction.sh`
+- Ensure the testing dataset is in the same folder as the rest of the project files
+- Run `./run_prediction.sh <dataset_filename>`

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cd ~/cs643-pa2
-
 mvn compile || exit 1
 
 echo "Compile succeeded"
